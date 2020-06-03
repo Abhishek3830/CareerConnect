@@ -1,0 +1,443 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" content="width=device-width,minimum-scale=1,maximum-scale=1" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Career Connect</title>
+
+
+
+    <style>
+        ::placeholder 
+        {
+        color: #4e4e50;
+        font-size: 0.8em;
+        font-family: OpenSans-Regular;
+        }
+
+           @font-face {
+            font-family: "OpenSans-Bold";
+            src: url("./fonts/OpenSans-Bold.ttf")
+        }
+
+        @font-face {
+            font-family: "OpenSans-Regular";
+            src: url("./fonts/OpenSans-Regular.ttf")
+        }
+
+        @font-face {
+            font-family: "OpenSans-Semibold";
+            src: url("./fonts/OpenSans-Semibold.ttf")
+        }
+
+
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            /*    min-height: 100vh; */
+            overflow: hidden;
+            margin: 0px;
+        }
+
+        #game-sec {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        canvas {
+            background-color: #204293;
+            margin: auto;
+        }
+
+        .dummy {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .dummy p:nth-child(1) {
+            font-family: 'OpenSans-Semibold';
+        }
+
+        .dummy p:nth-child(2) {
+            font-family: 'OpenSans-Regular';
+        }
+        .dummy p:nth-child(3) {
+            font-family: 'OpenSans-Bold';
+        }
+
+
+        #rotate {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #000000;
+            width: 100%;
+            height: 100%;
+        }
+
+        #rotate.active {
+            display: block;
+        }
+
+        #rotate img {
+            width: 50%;
+            max-width: 150px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /* footer img {
+            width: 100%;
+            margin-top: 20%;
+        } */
+        #footer{
+            background-repeat: no-repeat;
+    bottom: 0;
+    position: fixed;
+    background-size: contain;
+    margin-top: 70px;
+        }
+        .stay-tuned
+        {
+    text-align: center;
+    font-size: 2.5vh;
+    font-family: OpenSans-Bold;
+    color: #204293;
+    top: 25%;
+    line-height: 1;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    }
+    .name-data
+{
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 6%;
+}
+form {
+  box-sizing: border-box;
+  width: 260px;
+  margin: 80px auto 0;
+  /* padding-bottom: 40px; */
+  padding-left: 20px;
+  /* border-radius: 3p/x; */
+  position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+}
+form p{
+    font-family: OpenSans-Bold;
+    color: #204293;
+    margin: 5px 5px 5px 0px;
+    font-size: 2vh;
+}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  font-size: 2vh;
+  color: #a3a3a7;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.container input:checked ~ .checkmark {
+  background-color:  #96c240;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+#name{
+    border: none;
+    width: 215px;
+    border-bottom: solid 1px #204293;
+}
+input[type=text]{
+    background-image: url(./assets/03FormArrow.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+}
+input[type=date]{
+    background-image: url(./assets/03FormArrow.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    border: none;
+    width: 215px;
+    border-bottom: solid 1px #204293;
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+/* #dob{
+    border: none;
+    width: 215px;
+    border-bottom: solid 1px #204293;
+} */
+#email{
+    border: none;
+    width: 215px;
+    border-bottom: solid 1px #204293;}
+*:focus {
+    outline: none;
+}
+#TnC{
+    font-family: OpenSans-Bold;
+    color: #ccc;
+    font-size: 0.5em;
+    text-align: center;
+}
+u {
+    color: #96c240;
+}
+.popupBG
+{
+    /* background-image: url(./assets/T&CPop.png); */
+    height: 100vh;
+    width: 100%;
+    background-color: #0000007d;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    overflow-y: auto;
+    font-family: OpenSans-Bold;
+    right: 0;
+    margin: 0 auto;
+}
+.popup-body
+{
+    font-size: 14px;
+    padding: 10px;
+}
+.popup
+{
+    background-color: white;
+    /* width: 70%; */
+    margin: 10vh auto 0;
+    border-radius: 5px;
+    padding: 10px;
+}
+.close
+{
+    background-image: url(./assets/T&CClose.png);
+    width: 10%;
+    margin-left: 87%;
+    cursor: pointer;
+    height: 4vh;
+    background-repeat: no-repeat;
+}
+.txxt
+{
+    font-size: 1.2vh;
+    font-family: OpenSans-Bold;
+}
+#submit{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 30%;
+    margin-top: 37px;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+.err
+{
+    text-align: center;
+    position: absolute;
+    color: #ffffff;;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 2%;
+    font-size: 2.5vh;
+    font-family: OpenSans-Semibold;
+}
+
+    </style>
+    <link rel="stylesheet" href="./app.css">
+</head>
+
+<body>
+    <!-- <script>
+       $(document).ready(function() {
+  var c = document.getElementsByClassName(".box");
+  c.width = $("canvas").width();
+  c.height = $("canvas").height();
+});
+    </script> -->
+    <div class="dummy">
+        <p>Demo 1</p>
+        <p>Demo 2</p>
+        <p>Demo 3</p>
+    </div>
+    
+    <div id="game-sec"></div>
+
+  
+    <div class="form-sec" id="formDIv">
+        <div class="box"><img src="./assets/03Form.png" alt="">   
+            <p class="stay-tuned">Please fill In your<br>personal particulars</p>
+
+            <form>
+                <p>Name</p>
+                <input placeholder="Your answer here" id="name" type="text" required="">
+                <p>Date of Birth</p>
+                <input type="date"  id="dob" name="birthday" value="" min="1970-01-01" max="2015-12-31" required="">
+                <!-- <input placeholder="DD/MM/YYYY" id="dob" type="text" required=""> -->
+                <p>Email Address</p> 
+                <input placeholder="Your answer here" id="email" type="text" required="">
+                <p>Citizenship</p>
+                <label class="container">Singaporean
+                    <input type="radio" checked="checked" value="Singaporean" name="radio" id="singapore">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container">Permanent Resident
+                    <input type="radio"  name="radio" value="Permanent Resident" id="permanent">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container">Others
+                    <input type="radio"  name="radio" value="Others" id="others">
+                    <span class="checkmark"></span>
+                  </label>
+
+              </form> 
+              
+        </div>
+        <div id="TnC">
+            <span class="txxt">By proceeding, you agree to the <u>Tearms & Conditions</u> from WSG.</span>   
+        </div>  
+        <img src="./assets/SeeResult-Inactive.png" alt="" id="submit" class="sbmit">
+                    <p class="err"></p>
+        <img id="footer" src="./assets/03FormFooter.png" >
+          
+    </div>
+
+    <div class="popupBG" style="display:none">
+
+        <div class="popup">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                <!-- <span aria-hidden="true" style="float: right">&times;</span> -->
+            </button>
+
+            <div class="popup-body">
+                <h4 class="tandc">Terms and Conditions</h4><br>
+                WSG reserves the right to use the
+                information collected and survey results
+                provided. By taking part in this survey,
+                you will be deemed to have consented
+                to disclose the information provided
+                therein (including, without limitation,
+                your personally identifiable information
+                provided therein) to:(a) the Government
+                of the Republic of Singapore; (b) any
+                other statutory board, and (c) any third
+                party engaged to maintain, repair or
+                enhance this survey to otherwise perform
+                services for us for any purpose deemed
+                appropriate. To safeguard your personally
+                identifiable information, all electronic
+                storage and transmission of personally
+                identifiable information are secured with
+                appropriate security technologies.
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="rotate">
+        <img src="assets/tilt.png" alt="">
+    </div>
+    <script src="./lib/swipe.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="./lib/core.js"></script>
+    <script src="./lib/enc-base64.js"></script>
+    <script src="./lib/sha.js"></script>
+    <script src="./lib/sha256.js"></script>
+    <script src="./lib/phaser.2.11.0.min.js"></script>
+    <script src="./lib/phaser.2.2.2.box2d.min.js"></script>
+
+    <script>
+        $(".close").click(function() {
+            $(".popupBG").hide();
+        });
+    </script>
+
+<script>
+    $('#submit').hover(function() {
+    $(this).attr('src', 'assets/SeeResult-ActiveRoll.png');
+    }, function() {
+    $(this).attr('src', 'assets/SeeResult-Inactive.png');
+    })
+    $('#close').hover(function(){
+        $(this).attr('src', 'assets/T&CCloseRoll.png');
+    }, function() {
+    $(this).attr('src', 'assets/T&CClose.png');
+    })
+    </script>
+    <!-- <script>
+        var claimINPUT=document.getElementById("claim-field-txt")
+        claimINPUT.onblur = function () {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+}
+    </script> -->
+</body>
+
+</html>
